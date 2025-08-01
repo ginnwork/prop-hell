@@ -1,4 +1,4 @@
-Prop Hell
+Prop Hell in SolidJS
 
 ## The Problem
 
