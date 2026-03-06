@@ -11,31 +11,42 @@
  *   tableIndex: number;
  *   rowIndex: number;
  *   index: number;
+ *   appTable: number;
+ *   appRow: number;
+ *   appCell: number;
  *   hoverCell: (tableIndex: number, rowIndex: number, index: number) => void;
  *   hoverReset: () => void;
  * }
- *
+ * 
  * function Cell(props: CellProps) {
  *   const onPointerOver = () => props.hoverCell(props.tableIndex, props.rowIndex, props.index);
  *   const onPointerOut = () => props.hoverReset();
+ *   const isPointerOver = () =>
+ *     props.appTable === props.tableIndex &&
+ *     props.appRow === props.rowIndex &&
+ *     props.appCell === props.index;
  * }
  * ```
- *
+ * 
  * ```tsx
  * // Not so much
  * interface CellProps {
  *   index: number;
  * }
- *
+ * 
  * function Cell(props: CellProps) {
- *   const [, { hoverCell, hoverReset }] = useApp();
+ *   const [app, { hoverCell, hoverReset }] = useApp();
  *   const [table] = useTable();
  *   const [row] = useRow();
  *   const onPointerOver = () => hoverCell(table.index, row.index, props.index);
  *   const onPointerOut = () => hoverReset();
+ *   const isPointerOver = () =>
+ *     app.table === table.index &&
+ *     app.row === row.index &&
+ *     app.cell === props.index;
  * }
  * ```
- *
+ * 
  * ## The Solution
  *
  * Every component becomes a provider of its own props.
@@ -176,12 +187,10 @@ function Cell(props: CellProps & CellSchema) {
   const [row] = useRow();
   const onPointerOver = () => hoverCell(table.index, row.index, props.index);
   const onPointerOut = () => hoverReset();
-  const background = () =>
+  const isPointerOver = () =>
     app.table === table.index &&
     app.row === row.index &&
-    app.cell === props.index
-      ? "skyblue"
-      : "none";
+    app.cell === props.index;
   return (
     <div
       onPointerOver={onPointerOver}
@@ -189,7 +198,7 @@ function Cell(props: CellProps & CellSchema) {
       style={{
         border: "1px solid black",
         padding: "0.5rem",
-        background: background(),
+        background: isPointerOver() ? "skyblue" : "none",
       }}
     >
       <div>Table: {table.name}</div>
