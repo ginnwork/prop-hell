@@ -7,9 +7,12 @@ Splitting components into their own files can lead to passing props into compone
 ```tsx
 // Hell
 interface CellProps {
-  tableIndex: number;
-  rowIndex: number;
+  appCell: number;
+  appRow: number;
+  appTable: number;
   index: number;
+  rowIndex: number;
+  tableIndex: number;
   hoverCell: (tableIndex: number, rowIndex: number, index: number) => void;
   hoverReset: () => void;
 }
@@ -17,6 +20,10 @@ interface CellProps {
 function Cell(props: CellProps) {
   const onPointerOver = () => props.hoverCell(props.tableIndex, props.rowIndex, props.index);
   const onPointerOut = () => props.hoverReset();
+  const isPointerOver = () =>
+    props.appTable === props.tableIndex &&
+    props.appRow === props.rowIndex &&
+    props.appCell === props.index;
 }
 ```
 
@@ -27,11 +34,15 @@ interface CellProps {
 }
 
 function Cell(props: CellProps) {
-  const [, { hoverCell, hoverReset }] = useApp();
+  const [app, { hoverCell, hoverReset }] = useApp();
   const [table] = useTable();
   const [row] = useRow();
   const onPointerOver = () => hoverCell(table.index, row.index, props.index);
   const onPointerOut = () => hoverReset();
+  const isPointerOver = () =>
+    app.table === table.index &&
+    app.row === row.index &&
+    app.cell === props.index;
 }
 ```
 
