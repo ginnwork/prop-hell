@@ -50,4 +50,4 @@ function Cell(props: CellProps) {
 
 Every component becomes a provider of its own props.
 
-See https://playground.solidjs.com/anonymous/d01fe654-be0d-405c-8bab-2ea72b87996a
+See [https://playground.solidjs.com/anonymous/d01fe654-be0d-405c-8bab-2ea72b87996a](https://playground.solidjs.com/anonymous/fd57cf0a-cc0a-477d-b8d7-6bd720fb2e39)
