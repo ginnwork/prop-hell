@@ -2,7 +2,7 @@ Prop Hell in SolidJS
 
 ## The Problem
 
-Splitting components into their own files can lead to passing props into components just to pass them through to another component.
+Splitting components into their own files can lead to passing props into components just to pass them through to other components.
 
 ```tsx
 // Hell
@@ -50,4 +50,4 @@ function Cell(props: CellProps) {
 
 Every component becomes a provider of its own props.
 
-See [https://playground.solidjs.com/anonymous/d01fe654-be0d-405c-8bab-2ea72b87996a](https://playground.solidjs.com/anonymous/fd57cf0a-cc0a-477d-b8d7-6bd720fb2e39)
+See https://playground.solidjs.com/anonymous/fd57cf0a-cc0a-477d-b8d7-6bd720fb2e39
